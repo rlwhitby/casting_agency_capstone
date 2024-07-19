@@ -45,9 +45,9 @@ class CapstoneTestCase(unittest.TestCase):
         # or does it have to be fetched from the enviornment variable? - if yes
         # refactor to remove config_class and set config_type instead
 
-        # os.environ['CONFIG_TYPE'] = 'config.TestingConfig'
-        # self.app = create_app()
-        self.app = create_app(TestingConfig)
+        os.environ["CONFIG_TYPE"] = "config.TestingConfig"
+        self.app = create_app()
+        # self.app = create_app(TestingConfig)
         self.client = self.app.test_client
 
         # Set the user tokens

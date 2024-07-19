@@ -31,9 +31,9 @@ INVALID_ACTOR = {"name": "Michelle Yeoh", "gender": "Female"}
 VALID_ACTOR_PATCH = {"name": "Tom Holland", "age": 28, "gender": "Male"}
 
 VALID_MOVIE = {
-    "title": "Everything Everywhere All at Once",
-    "release_date": "2022-03-11",
-    "genre": "Action",
+    "title": "Crazy Rich Asians",
+    "release_date": "2018-08-15",
+    "genre": "Comedy",
 }
 INVALID_MOVIE = {"title": "Everything Everywhere All at Once", "genre": "Action"}
 

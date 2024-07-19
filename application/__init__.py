@@ -2,7 +2,7 @@ from flask import Flask
 import sqlalchemy as sa
 import os
 
-from config import DevelopmentConfig
+# from config import DevelopmentConfig
 from application.extensions import db
 
 
@@ -15,16 +15,16 @@ from application.extensions import db
 # To test - in Render production, can the config_type be passed into create_app()
 # or does it have to be fetched from the enviornment variable? - if yes
 # refactor to remove config_class and set config_type instead
-def create_app(config_class=DevelopmentConfig):
+def create_app():
     app = Flask(__name__)
 
-    app.config.from_object(config_class)
+    # app.config.from_object(config_class)
 
     # To test - in Render production, can the config_type be passed into create_app()
     # or does it have to be fetched from the enviornment variable? - if yes
     # refactor to remove config_class and set config_type instead
-    # config_type = os.environ.get("CONFIG_TYPE", default="config.DevelopmentConfig")
-    # app.config.from_object(config_type)
+    config_type = os.environ.get("CONFIG_TYPE", default="config.DevelopmentConfig")
+    app.config.from_object(config_type)
 
     # Connect the database object to the application instance
     db.init_app(app)
