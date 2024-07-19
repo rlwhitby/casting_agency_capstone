@@ -1,5 +1,11 @@
-from application import db
-from application.enums import GenreEnum
+from flask import current_app
+
+from application.extensions import db
+
+from application.models.enums import GenreEnum
+
+# TODO: does this work or should it be replaced with sa and so?
+# db = current_app.db
 
 # ----------------------------------------------------------------------------#
 # Association Table - many-to-many relationship

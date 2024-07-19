@@ -1,17 +1,16 @@
-from flask import abort, jsonify
+from flask import abort, jsonify, current_app
 from werkzeug.exceptions import HTTPException
 
-from application import app
+# TODO: is it needed?
+from application.extensions import db
+from application.errors import bp
+from application.auth.auth import AuthError
 
 # ----------------------------------------------------------------------------#
 # Error Handling.
 # ----------------------------------------------------------------------------#
 
 
-# The below exception handler function allows any abort() inside
-# the try blocks to work while also minimising duplicate code.
-# https://stackoverflow.com/questions/17746897/flask-abort-inside-try-block-behaviour
-# https://flask.palletsprojects.com/en/3.0.x/errorhandling/#error-handlers
 def customExceptionHandler(e):
     """The customExceptionHandler function aborts the appplication and returns
     an appropriate json message when an HTTPException error is raised.
@@ -53,7 +52,11 @@ def customExceptionHandler(e):
 #     )
 
 
-@app.errorhandler(400)
+# The app_errorhandler method is used so the the error handlers
+# can be defined in a separate blueprint, and still correctly
+# return a json response.
+# Ref: https://stackoverflow.com/questions/55785287/errorhandler-in-separate-blueprint-is-not-working # noqa
+@bp.app_errorhandler(400)
 def bad_request(error):
     """Returns "success": False, "error": "400 Bad Request", and an
     error message.
@@ -71,7 +74,7 @@ def bad_request(error):
     )
 
 
-@app.errorhandler(404)
+@bp.app_errorhandler(404)
 def not_found(error):
     """Returns "success": False, "error": "404 Not Found", and an
     error message.
@@ -89,7 +92,7 @@ def not_found(error):
     )
 
 
-@app.errorhandler(405)
+@bp.app_errorhandler(405)
 def method_not_allowed(error):
     """Returns "success": False, "405 Method Not Allowed", and an
     error message.
@@ -106,7 +109,7 @@ def method_not_allowed(error):
     )
 
 
-@app.errorhandler(422)
+@bp.app_errorhandler(422)
 def unprocessable(error):
     """Returns "success": False, "error": "422 Unprocessable Content", and an
     error message.
@@ -123,7 +126,7 @@ def unprocessable(error):
     )
 
 
-@app.errorhandler(500)
+@bp.app_errorhandler(500)
 def internal_server_error(error):
     """Returns "success": False, "error": "500 Internal Server Error", and an
     error message.
@@ -140,18 +143,18 @@ def internal_server_error(error):
     )
 
 
-# @app.errorhandler(AuthError)
-# def auth_error(error):
-#     """The auth_error error handler returns an appropriate
-#     json message when an authorization error is raised.
+@bp.app_errorhandler(AuthError)
+def auth_error(error):
+    """The auth_error error handler returns an appropriate
+    json message when an authorization error is raised.
 
-#     Args:
-#     error (Any): The error code passed by the raised AuthError.
+    Args:
+    error (Any): The error code passed by the raised AuthError.
 
-#     Returns:
-#     response: The status code and JSON string defined by the
-#     raised AuthError.
-#     """
-#     response = jsonify(error.error)
-#     response.status_code = error.status_code
-#     return response
+    Returns:
+    response: The status code and JSON string defined by the
+    raised AuthError.
+    """
+    response = jsonify(error.error)
+    response.status_code = error.status_code
+    return response

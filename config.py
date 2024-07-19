@@ -10,13 +10,29 @@ class Config:
 
     # TODO Udacity ref
 
-    # usse os.getenv or os.environ.get?
-    if os.getenv("DATABASE_URL"):
-        SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL").replace(
+    # use os.getenv or os.environ.get?
+    if os.environ.get("DATABASE_URL"):
+        SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL").replace(
             "postgres://", "postgresql://", 1
         )
     else:
         SQLALCHEMY_DATABASE_URI = (
             "postgresql://postgres:postgres@localhost:5432/capstone"
         )
+        # SQLALCHEMY_DATABASE_URI = os.getenv(
+        #     "DATABASE_URL",
+        #     default="postgresql://postgres:postgres@localhost:5432/capstone",
+        # )
         SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+
+
+class TestingConfig(Config):
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "TEST_DATABASE_URL",
+        default="postgresql://postgres:postgres@localhost:5432/capstone_test",
+    )
