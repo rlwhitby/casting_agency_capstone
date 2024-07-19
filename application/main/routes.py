@@ -36,9 +36,9 @@ def index():
 
 
 @bp.route("/actors")
-# @requires_auth("view:actors")
-# def get_actors(payload):
-def get_actors():
+@requires_auth("view:actors")
+def get_actors(payload):
+    # def get_actors():
     """Returns a list of actors.
 
     The get_actors function is a private endpoint using the GET method
@@ -100,14 +100,14 @@ def get_actor_movies(payload, actor_id):
     JSON: "success": True, "actor": the actor's name,
     "movies cast in": a list of movies the actor has been cast in.
 
+    JSON: "success": True, "actor": the actor's name,
+    "movies cast in": "The actor actor.name has not been cast in any movies yet",
+    if the actor has not been cast in any movies.
+
     Raises:
     HTTPException: 404, "success": False,
     "description": "No actor with id actor_id exists", if the actor_id is not
     in the database.
-
-    HTTPException: 404, "success": False,
-    "description": "The actor actor.name has not been cast in any movies yet",
-    if the actor has not been cast in any movies.
     """
     try:
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
@@ -395,14 +395,14 @@ def get_movie_actors(payload, movie_id):
     JSON: "success": True, "movie": the movie's title,
     "actors cast": a list of actors cast in the movie.
 
+     JSON: "success": True, "movie": the movie's title,
+    "actors cast": "The movie movie.title does not have any cast members yet",
+    if the movie does not have any actors cast in it.
+
     Raises:
     HTTPException: 404, "success": False,
     "description": "No movie with id movie_id exists", if the movie_id is not
     in the database.
-
-    HTTPException: 404, "success": False,
-    "description": "The movie movie.title does not have any cast members yet",
-    if the movie does not have any actors cast in it.
     """
     try:
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
