@@ -1,6 +1,7 @@
 import os
 
 
+# class Config(object):
 class Config:
     FLASK_ENV = "development"
     DEBUG = False
@@ -25,6 +26,12 @@ class Config:
         # )
         SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # LOG_WITH_GUNICORN = os.getenv('LOG_WITH_GUNICORN', default=False)
+
+
+class ProductionConfig(Config):
+    FLASK_ENV = "production"
+
 
 class DevelopmentConfig(Config):
     DEBUG = True
@@ -36,3 +43,5 @@ class TestingConfig(Config):
         "TEST_DATABASE_URL",
         default="postgresql://postgres:postgres@localhost:5432/capstone_test",
     )
+
+    WTF_CSRF_ENABLED = False
