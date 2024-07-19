@@ -1,8 +1,8 @@
 import os
 
 
-# class Config(object):
-class Config:
+class Config(object):
+    # class Config:
     FLASK_ENV = "development"
     DEBUG = False
     TESTING = False
