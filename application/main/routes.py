@@ -36,9 +36,9 @@ def index():
 
 
 @bp.route("/actors")
-@requires_auth("view:actors")
-def get_actors(payload):
-    # def get_actors():
+# @requires_auth("view:actors")
+# def get_actors(payload):
+def get_actors():
     """Returns a list of actors.
 
     The get_actors function is a private endpoint using the GET method
