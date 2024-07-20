@@ -14,8 +14,8 @@ from application.models.models import Actor, Movie
 AUTH0_DOMAIN = os.environ.get("AUTH0_DOMAIN")
 ALGORITHMS = os.environ.get("ALGORITHMS")
 API_AUDIENCE = os.environ.get("API_AUDIENCE")
-AUTH0_CLIENT_ID=os.environ.get("AUTH0_CLIENT_ID")
-AUTH0_CALLBACK_URL=os.environ.get("AUTH0_CALLBACK_URL")
+AUTH0_CLIENT_ID = os.environ.get("AUTH0_CLIENT_ID")
+AUTH0_CALLBACK_URL = os.environ.get("AUTH0_CALLBACK_URL")
 
 
 # @bp.after_request
@@ -36,6 +36,7 @@ def after_request(response):
 def index():
     return jsonify({"message": "Welcome to the Casting Agency App!"})
 
+
 # Ref: https://knowledge.udacity.com/questions/177446
 # Helper function to generate a new JWT token
 @bp.route("/authorization/url", methods=["GET"])
@@ -48,7 +49,7 @@ def generate_auth_url():
         f'&response_type=token&client_id=' \
         f'{AUTH0_CLIENT_ID}&redirect_uri=' \
         f'{AUTH0_CALLBACK_URL}'
-        
+
     return jsonify({
         'url': url
     })
@@ -108,7 +109,7 @@ def get_actors(payload):
 @bp.route("/actor/<int:actor_id>/movies")
 @requires_auth("view:actors")
 def get_actor_movies(payload, actor_id):
-# def get_actor_movies(actor_id):
+    # def get_actor_movies(actor_id):
     """Return a list of movies the actor has been cast in.
 
     The get_actor_movies function uses the GET method to
@@ -417,7 +418,7 @@ def get_movies(payload):
 @bp.route("/movie/<int:movie_id>/actors")
 @requires_auth("view:movies")
 def get_movie_actors(payload, movie_id):
-# def get_movie_actors(movie_id):
+    # def get_movie_actors(movie_id):
     """Return a list of actors cast in the movie.
 
     The get_movie_actors function uses the GET method to
@@ -451,7 +452,7 @@ def get_movie_actors(payload, movie_id):
                 )
 
         actors = [actor.format() for actor in movie.actors]
-        
+
         if len(actors) == 0:
             return (
                 jsonify(

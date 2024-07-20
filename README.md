@@ -7,7 +7,7 @@
 > This application follows [PEP8 style guidelines](https://peps.python.org/pep-0008/). Pycodestyle is installed to check the python code files against the PEP8 style conventions.
 
 # Deployment
-This application is hosted on [Render](https://render.com/) at: #TODO
+This application is hosted on [Render](https://render.com/) at: `https://casting-agency-es62.onrender.com`
 
 ## Main Files: Project Structure
 
@@ -28,6 +28,8 @@ This application is hosted on [Render](https://render.com/) at: #TODO
 ├── app.py *** the main driver of the app
 ├── capstone.psql
 ├── config.py *** contains the configurations of the Development, Test and Production environments
+├── casting_agency_local.postman_collection.json
+├── casting_agency_production.postman_collection.json
 ├── README.md
 ├── requirements.txt *** the dependencies for the application
 ├── setup.sh *** script file to set environment variables
@@ -39,7 +41,7 @@ This application is hosted on [Render](https://render.com/) at: #TODO
 # Local Development
 This section describes how to set up the local development environment and run the project locally.
 
-## Install Dependancies
+## Install Dependencies
 1. **Python 3.11** - Follow the instructions to install the latest version of python in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
 2. **PostgreSQL 14.12** Follow the instructions to install [PostgreSQL](https://www.postgresql.org/).
@@ -146,7 +148,7 @@ python test_app.py CapstoneTestCase.test_delete_movie_403
 ## API Authentication
 All of the endpoints, except the index and /authorization/url routes, require permissions passed by a Bearer token.
 
-Use the following url or the `/authorization/url` when the application is running locally, and the login details of the roles,to create new JWT tokens, if the tokens saved in the `setup.sh` and the `postman collection` files have expired:
+Use the following url or the `/authorization/url` when the application is running locally, and the login details of the roles, to create new JWT tokens, if the tokens saved in the `setup.sh` and the `postman collection` files have expired:
 
 `https://dev-dudattxg70vfdgkq.au.auth0.com/authorize?audience=castingAgencyAPI&response_type=token&client_id=t4oSkhZhgtTiA9Tcy1eR6eEYiF88QtXg&redirect_uri=http://127.0.0.1:8080/login-results`
 
@@ -509,7 +511,7 @@ Sample Request:
 General:
 - Returns a success value, the movie title and a list of actors cast in the movie.
 - Private endpont, requires the `view:movies` permission.
-- Request Arguments: a decoded JWT token payload and the movie id (int).
+- Request Arguments: a decoded JWT token payload and the movie_id (int).
 - Request Body: none.
 
 Sample Request:
@@ -581,7 +583,7 @@ Sample Request:
 ### PATCH /movies/{movie_id}/edit
 General:
 - Edits the selected movie using the submitted title, release date and/or genre.
-- Private endpont, requires the `update:movies` permission.
+- Private endpoint, requires the `update:movies` permission.
 - Request Arguments: a decoded JWT token payload and movie_id (int).
 - Request Body:
     - title: string, optional.
