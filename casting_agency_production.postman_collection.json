@@ -1,0 +1,1450 @@
+{
+	"info": {
+		"_postman_id": "4ef48376-37e9-4648-b084-7a10a015e54d",
+		"name": "casting_agency_production",
+		"description": "Before running this collection:\n\n- Update tokens if required\n    \n- Reset database and seed from .psql file\n    \n- Run the flask app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32510115"
+	},
+	"item": [
+		{
+			"name": "Casting Assistant",
+			"item": [
+				{
+					"name": "/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movies",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actor/1/movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actor/1/movies",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actor",
+								"1",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movie/1/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movie/1/actors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movie",
+								"1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Michelle Yeoh\", \"age\": 61, \"gender\": \"Female\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Crazy Rich Asians\",\r\n    \"release_date\": \"2018-08-15\",\r\n    \"genre\": \"Comedy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movie/3/actor/3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movie/3/actor/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movie",
+								"3",
+								"actor",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/1/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Ke Huy Quan edit\", \"age\": 52, \"gender\": \"Male\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/1/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Indiana Jones and the Temple of Doom edit\", \"release_date\": \"05-08-1984\",\"genre\": \"Action\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/2/delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/2/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"2",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/2/delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/2/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"2",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWU1MGJlNzQ5YWZhYWEyOWI2NWIiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMDY0LCJleHAiOjE3MjE1Mzg0NjQsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.KZaflK4gZ26vV_u02nVbF87wwL2iGSyqmZEyjoXq4nPqAmaZdnUQhPTANAuwu4yQL7xyIbFkzYp2BZgjvYBu4Qq7mBg5z9JdK3bd4350bRzS_g5Vlll2jgZmx9YOmqBnFeD7dOTGXCVaJ97B_b6GD8sHRyutSy9hKUuir43VNEU-I3pvGemSEm8Mo9zB4Gk7fA6f2N54pybVyt2JY2VyjPtDMm2UC5BP5v85sZVl6L08mTWrHCptx2R8adQolua5nt1l1I3-lUgQwpMRN-Ixq8gomKrq0ys32SKKDwDRrBUhtKDmGEBMgTTtbnPL8QUoXfQOgH-YDdyzfisek_wrbg",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Casting Director",
+			"item": [
+				{
+					"name": "/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movies",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actor/1/movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actor/1/movies",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actor",
+								"1",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movie/1/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movie/1/actors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movie",
+								"1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Michelle Yeoh\", \"age\": 61, \"gender\": \"Female\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Crazy Rich Asians\",\r\n    \"release_date\": \"2018-08-15\",\r\n    \"genre\": \"Comedy\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movie/3/actor/3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movie/3/actor/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movie",
+								"3",
+								"actor",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/1/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Ke Huy Quan edit\", \"age\": 52, \"gender\": \"Male\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/1/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Indiana Jones and the Temple of Doom edit\", \"release_date\": \"05-08-1984\",\"genre\": \"Action\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/2/delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/2/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"2",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/2/delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 403 since credentials are valid, but permission is not present\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/2/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"2",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWY1NDA5MGYyMzM0YjczY2MxZmQiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMjI4LCJleHAiOjE3MjE1Mzg2MjgsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwicG9zdDphY3RvcnMiLCJwb3N0OmNhc3RfYWN0b3JzIiwidXBkYXRlOmFjdG9ycyIsInVwZGF0ZTptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.qNGc0RXFGPZs4a3gh-WJ02jtcI3py-BxH9-VWZklRhQyePtNszBvzTqTy4db8BG4qt6J2hR9hxtCeCpJBny2XXKsuYtGdVtKd5Y_4R4p0QAnQmSpaHo94V02zwvy6hXGlUEwCxMrLmPNyvHANdvYqh9z9C353lWZadV5LCpDCc-jjEyChLp7xynG9IRePLUiwm3ILsLU3waGuFXN_KDa_hHYDfY1mRFU4ZRqa2KFkfy0Mmuy7D9j042LSAnG04KSobu6AQ_nbWpXJ9fcVQ4dpysrlqmwPengc-offjsvsSOzbYMYx3OUxYdmAIQMblARqWsXsOCN_O1xOxl8fIurTA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Executive Producer",
+			"item": [
+				{
+					"name": "/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movies",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actor/1/movies",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/actor/1/movies",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actor",
+								"1",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movie/1/actors",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/movie/1/actors",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movie",
+								"1",
+								"actors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Michelle Yeoh\", \"age\": 61, \"gender\": \"Female\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/add",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"X-Men: First Class\",\r\n    \"release_date\": \"2011-06-03\",\r\n    \"genre\": \"Action\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/add",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movie/4/actor/3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movie/4/actor/3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movie",
+								"4",
+								"actor",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/1/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"name\": \"Ke Huy Quan edit\", \"age\": 52, \"gender\": \"Male\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/1/edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"title\": \"Indiana Jones and the Temple of Doom edit\", \"release_date\": \"05-08-1984\",\"genre\": \"Action\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/1/edit",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"1",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/actors/3/delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/actors/3/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"actors",
+								"3",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/movies/2/delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/movies/2/delete",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"movies",
+								"2",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWY5NTg4ZjJlODZhZjRmOWVlZmYiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMzE3LCJleHAiOjE3MjE1Mzg3MTcsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDpjYXN0X2FjdG9ycyIsInBvc3Q6bW92aWVzIiwidXBkYXRlOmFjdG9ycyIsInVwZGF0ZTptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.P5C5u0SlInqMDY_a84rQ1vISj0OYZNYboK76BYmVdYayZ2MtZ2J2VLIMwhq37lPUZs6GrZ3aO3frPKgNZzV2S_yaNMX6YDtN1NrqEhJSMxutt1n6m8ozL0E9wNnehFMTF2xAVFG5H9KJYG2wdxkIUp9Tiym4DjSlYzOgYSJ16B6hhufqPxvCiggMf8XkGrQblHAz72_y5eX3Xu87oep9rXdj5SAQ9FGlxX4FE0QZhbqLyWS3l93kTIc5FXSoTIJobrtAONCHjiwmYX6UU7l6DQEY77d3e37TolKRCPkhFlwOw-cbRB8iuK1LmdBy-2Ri8HtamXy6Dr91jfRIyQCuIA",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "index",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://casting-agency-es62.onrender.com",
+			"type": "string"
+		}
+	]
+}
