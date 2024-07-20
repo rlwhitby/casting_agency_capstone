@@ -2,9 +2,9 @@
 ## Overview
 > This is my final capstone project for the Udacity Full Stack Web Developer Nanodegree.
 
-> It is a demonstration project to showcase my skills in Flask, SQLAlchemy, Auth0, Render to develop and deploy a API backend application.
+> It is a demonstration project to showcase my skills in Flask, SQLAlchemy, Auth0, Render to develop and deploy an API backend application.
 > 
-> This application follows [PEP8 style guidelines](https://peps.python.org/pep-0008/). Pycodestyle is installed to check the python code file against the PEP8 style conventions.
+> This application follows [PEP8 style guidelines](https://peps.python.org/pep-0008/). Pycodestyle is installed to check the python code files against the PEP8 style conventions.
 
 # Deployment
 This application is hosted on [Render](https://render.com/) at: #TODO
@@ -18,38 +18,37 @@ This application is hosted on [Render](https://render.com/) at: #TODO
 │   │   └── auth.py *** authorisation methods and error handling
 │   ├── errors
 │   │   ├── __init__.py
-│   │   └── handlers.py *** error handling for the application
+│   │   └── handlers.py *** error handling
 │   ├── main
 │   │   ├── __init__.py
-│   │   └── routes.py *** main routes of the application
+│   │   └── routes.py *** main API routes
 │   └── models
 │       ├── enums.py
-│       └── models.py *** database models for the application
+│       └── models.py *** database models
 ├── app.py *** the main driver of the app
 ├── capstone.psql
-├── config.py *** contains the configurations for the development, test and production environments
+├── config.py *** contains the configurations of the Development, Test and Production environments
 ├── README.md
-├── requirements.txt *** the dependencies installed with "pip install -r requirements.txt"
+├── requirements.txt *** the dependencies for the application
 ├── setup.sh *** script file to set environment variables
-├── test_app.py *** unit tests for the application
+├── test_app.py *** application unit tests
 └── testing_constants.py
 
 ```
 
-# Getting Started
-## Prerequisites & Local Development
+# Local Development
 This section describes how to set up the local development environment and run the project locally.
 
-# Local Development
 ## Install Dependancies
-1. **Python 3.11** - Follow the instructions to install the latest version of python for your platform in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
+1. **Python 3.11** - Follow the instructions to install the latest version of python in the [python docs](https://docs.python.org/3/using/unix.html#getting-and-installing-the-latest-version-of-python)
 
-2. - **PostgreSQL 14.12** Follow the instructions to install [PostgreSQL](https://www.postgresql.org/)
+2. **PostgreSQL 14.12** Follow the instructions to install [PostgreSQL](https://www.postgresql.org/).
+The database URL in `setup.sh` has the username and password `postgres:postgres`. If you have a different username and password, update the `DATABASE_URL` and `TEST_DATABASE_URL` in `setup.sh`.
 
-2. **Virtual Environment** - The built-in Python3 module, venv, is used to create an isolated Python environment.
-If you want to use a different tool, instructions for setting up a virual enviornment for your platform can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
+3. **Virtual Environment** - The built-in Python3 module `venv` is used to create an isolated Python environment.
+If you want to use a different tool, instructions for setting up a different virtual environment can be found in the [python docs](https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/).
 
-Run the following commands to create and activate a new environment.
+If using `venv`, run the following commands to create and activate a new environment.
 ```bash
 # create virtual env
 python3 -m venv venv
@@ -58,19 +57,17 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-3. **PIP Dependencies** - Once you have your virtual environment setup and running, install dependencies by running:
+4. **PIP Dependencies** - Once you have your virtual environment setup and running, install the required packages by running:
 ```bash
 pip install -r requirements.txt
 ```
-This will install all of the required packages within the `requirements.txt` file.
 
-
-4. **Key Dependencies**
- - [Flask](http://flask.pocoo.org/) is a lightweight backend microservices framework. Flask is required to handle requests and responses.
+5. **Key Dependencies**
+ - [Flask](http://flask.pocoo.org/) is a lightweight backend microservices framework handling requests and responses for the application.
 
  - [SQLAlchemy](https://www.sqlalchemy.org/) and [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/) are libraries to handle the PostgreSQL database.
 
- - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension used to handle cross origin requests from our frontend server. 
+ - [Flask-CORS](https://flask-cors.readthedocs.io/en/latest/#) is the extension used to handle cross origin requests. 
 
 - [jose](https://python-jose.readthedocs.io/en/latest/) JavaScript Object Signing and Encryption for JWTs. Useful for encoding, decoding, and verifying JWTS.
 
@@ -105,17 +102,20 @@ sudo -u postgres psql -d capstone < capstone.psql
 
 
 ## Run the Application
-This command runs the app in developement mode - shows an interactive debugger in the console and restarts the server whenever changes are made - [Debug Mode](https://flask.palletsprojects.com/en/3.0.x/config/)
+The application is hosted at the default `http://127.0.0.1:5000/` when running locally.
 
-The application is hosted at the default, `http://127.0.0.1:5000/`
+This command runs the app in [debug mode](https://flask.palletsprojects.com/en/3.0.x/config/) - an interactive debugger is shown in the console and restarts the server whenever changes are made.
+
+Run the following command to start the application locally:
 ```bash
 flask --app app --debug run
 ```
 
 ## Testing
-The `unittest` framework is used in this application to run the tests [python docs - unittest](https://docs.python.org/3/library/unittest.html)
 
-To setup the testing database, with PostgreSQL running, login and create a `capstone_test` database.
+The [unittest](https://docs.python.org/3/library/unittest.html) framework is used in this application to run the tests.
+
+To setup the testing database, login and create a `capstone_test` database.
 ```bash
 # login to postgres
 sudo -u postgres -i
@@ -129,7 +129,8 @@ exit
 ```
 The `capstone_test` database does not need to be pre-populated with data.
 
-**Running Tests**
+### Running Tests
+
 Use the following command to run the tests:
 ```bash
 python test_app.py
@@ -143,9 +144,9 @@ python test_app.py CapstoneTestCase.test_delete_movie_403
 
 # API Reference
 ## API Authentication
-All of the endpoints, except the root index method, require permissions passed by a Bearer token.
+All of the endpoints, except the index and /authorization/url routes, require permissions passed by a Bearer token.
 
-Use the following url or the `/authorization/url` when the application is running locally, and the login details of the roles, if the JWTs (tokens) saved in the `setup.sh` and the `postman collection` files have expired:
+Use the following url or the `/authorization/url` when the application is running locally, and the login details of the roles,to create new JWT tokens, if the tokens saved in the `setup.sh` and the `postman collection` files have expired:
 
 `https://dev-dudattxg70vfdgkq.au.auth0.com/authorize?audience=castingAgencyAPI&response_type=token&client_id=t4oSkhZhgtTiA9Tcy1eR6eEYiF88QtXg&redirect_uri=http://127.0.0.1:8080/login-results`
 
@@ -155,13 +156,14 @@ There are three roles for the application:
     - Permissions:
         - `view:actors`
         - `view:movies`
-    - Login Details (if a new JWT is required):
+    - Login Details (if a new token is required):
         - `casting_assistant@gmail.com`
         - `passwordAssistant3456#`
 
+
     <details>
     <summary>Casting Assistant Token:</summary>
-    `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWU1MGJlNzQ5YWZhYWEyOWI2NWIiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMDY0LCJleHAiOjE3MjE1Mzg0NjQsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.KZaflK4gZ26vV_u02nVbF87wwL2iGSyqmZEyjoXq4nPqAmaZdnUQhPTANAuwu4yQL7xyIbFkzYp2BZgjvYBu4Qq7mBg5z9JdK3bd4350bRzS_g5Vlll2jgZmx9YOmqBnFeD7dOTGXCVaJ97B_b6GD8sHRyutSy9hKUuir43VNEU-I3pvGemSEm8Mo9zB4Gk7fA6f2N54pybVyt2JY2VyjPtDMm2UC5BP5v85sZVl6L08mTWrHCptx2R8adQolua5nt1l1I3-lUgQwpMRN-Ixq8gomKrq0ys32SKKDwDRrBUhtKDmGEBMgTTtbnPL8QUoXfQOgH-YDdyzfisek_wrbg`
+    eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWU1MGJlNzQ5YWZhYWEyOWI2NWIiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMDY0LCJleHAiOjE3MjE1Mzg0NjQsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.KZaflK4gZ26vV_u02nVbF87wwL2iGSyqmZEyjoXq4nPqAmaZdnUQhPTANAuwu4yQL7xyIbFkzYp2BZgjvYBu4Qq7mBg5z9JdK3bd4350bRzS_g5Vlll2jgZmx9YOmqBnFeD7dOTGXCVaJ97B_b6GD8sHRyutSy9hKUuir43VNEU-I3pvGemSEm8Mo9zB4Gk7fA6f2N54pybVyt2JY2VyjPtDMm2UC5BP5v85sZVl6L08mTWrHCptx2R8adQolua5nt1l1I3-lUgQwpMRN-Ixq8gomKrq0ys32SKKDwDRrBUhtKDmGEBMgTTtbnPL8QUoXfQOgH-YDdyzfisek_wrbg
     </details>
 
 
@@ -178,13 +180,14 @@ There are three roles for the application:
         - `delete:actors`
         - `update:movies`
         - `post:cast_actors`
-    - Login Details (if a new JWT is required):
+    - Login Details (if a new token is required):
         - `casting_director@gmail.com`
         - `passwordDirector8756@`
 
+
     <details>
     <summary>Casting Director Token:</summary>
-    `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWY1NDA5MGYyMzM0YjczY2MxZmQiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMjI4LCJleHAiOjE3MjE1Mzg2MjgsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwicG9zdDphY3RvcnMiLCJwb3N0OmNhc3RfYWN0b3JzIiwidXBkYXRlOmFjdG9ycyIsInVwZGF0ZTptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.qNGc0RXFGPZs4a3gh-WJ02jtcI3py-BxH9-VWZklRhQyePtNszBvzTqTy4db8BG4qt6J2hR9hxtCeCpJBny2XXKsuYtGdVtKd5Y_4R4p0QAnQmSpaHo94V02zwvy6hXGlUEwCxMrLmPNyvHANdvYqh9z9C353lWZadV5LCpDCc-jjEyChLp7xynG9IRePLUiwm3ILsLU3waGuFXN_KDa_hHYDfY1mRFU4ZRqa2KFkfy0Mmuy7D9j042LSAnG04KSobu6AQ_nbWpXJ9fcVQ4dpysrlqmwPengc-offjsvsSOzbYMYx3OUxYdmAIQMblARqWsXsOCN_O1xOxl8fIurTA`
+    eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWY1NDA5MGYyMzM0YjczY2MxZmQiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMjI4LCJleHAiOjE3MjE1Mzg2MjgsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwicG9zdDphY3RvcnMiLCJwb3N0OmNhc3RfYWN0b3JzIiwidXBkYXRlOmFjdG9ycyIsInVwZGF0ZTptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.qNGc0RXFGPZs4a3gh-WJ02jtcI3py-BxH9-VWZklRhQyePtNszBvzTqTy4db8BG4qt6J2hR9hxtCeCpJBny2XXKsuYtGdVtKd5Y_4R4p0QAnQmSpaHo94V02zwvy6hXGlUEwCxMrLmPNyvHANdvYqh9z9C353lWZadV5LCpDCc-jjEyChLp7xynG9IRePLUiwm3ILsLU3waGuFXN_KDa_hHYDfY1mRFU4ZRqa2KFkfy0Mmuy7D9j042LSAnG04KSobu6AQ_nbWpXJ9fcVQ4dpysrlqmwPengc-offjsvsSOzbYMYx3OUxYdmAIQMblARqWsXsOCN_O1xOxl8fIurTA
     </details>
 
 
@@ -201,22 +204,28 @@ There are three roles for the application:
         - `post:cast_actors`
         - `post:movies`
         - `delete:movies`
-    - Login Details (if a new JWT is required):
+    - Login Details (if a new token is required):
         - `executive_producer@gmail.com`
         - `passwordProducer4704$`
 
+
     <details>
     <summary>Executive Producer Token:</summary>
-    `eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWY5NTg4ZjJlODZhZjRmOWVlZmYiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMzE3LCJleHAiOjE3MjE1Mzg3MTcsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDpjYXN0X2FjdG9ycyIsInBvc3Q6bW92aWVzIiwidXBkYXRlOmFjdG9ycyIsInVwZGF0ZTptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.P5C5u0SlInqMDY_a84rQ1vISj0OYZNYboK76BYmVdYayZ2MtZ2J2VLIMwhq37lPUZs6GrZ3aO3frPKgNZzV2S_yaNMX6YDtN1NrqEhJSMxutt1n6m8ozL0E9wNnehFMTF2xAVFG5H9KJYG2wdxkIUp9Tiym4DjSlYzOgYSJ16B6hhufqPxvCiggMf8XkGrQblHAz72_y5eX3Xu87oep9rXdj5SAQ9FGlxX4FE0QZhbqLyWS3l93kTIc5FXSoTIJobrtAONCHjiwmYX6UU7l6DQEY77d3e37TolKRCPkhFlwOw-cbRB8iuK1LmdBy-2Ri8HtamXy6Dr91jfRIyQCuIA`
+    eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6InhkVlVnQnBBdXoxZXVMSHB5Q1REaiJ9.eyJpc3MiOiJodHRwczovL2Rldi1kdWRhdHR4ZzcwdmZkZ2txLmF1LmF1dGgwLmNvbS8iLCJzdWIiOiJhdXRoMHw2NjZlOWY5NTg4ZjJlODZhZjRmOWVlZmYiLCJhdWQiOiJjYXN0aW5nQWdlbmN5QVBJIiwiaWF0IjoxNzIxNDUyMzE3LCJleHAiOjE3MjE1Mzg3MTcsInNjb3BlIjoiIiwiYXpwIjoidDRvU2toWmhndFRpQTlUY3kxZVI2ZUVZaUY4OFF0WGciLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZGVsZXRlOm1vdmllcyIsInBvc3Q6YWN0b3JzIiwicG9zdDpjYXN0X2FjdG9ycyIsInBvc3Q6bW92aWVzIiwidXBkYXRlOmFjdG9ycyIsInVwZGF0ZTptb3ZpZXMiLCJ2aWV3OmFjdG9ycyIsInZpZXc6bW92aWVzIl19.P5C5u0SlInqMDY_a84rQ1vISj0OYZNYboK76BYmVdYayZ2MtZ2J2VLIMwhq37lPUZs6GrZ3aO3frPKgNZzV2S_yaNMX6YDtN1NrqEhJSMxutt1n6m8ozL0E9wNnehFMTF2xAVFG5H9KJYG2wdxkIUp9Tiym4DjSlYzOgYSJ16B6hhufqPxvCiggMf8XkGrQblHAz72_y5eX3Xu87oep9rXdj5SAQ9FGlxX4FE0QZhbqLyWS3l93kTIc5FXSoTIJobrtAONCHjiwmYX6UU7l6DQEY77d3e37TolKRCPkhFlwOw-cbRB8iuK1LmdBy-2Ri8HtamXy6Dr91jfRIyQCuIA
     </details>
 
 ## API Testing
-Postman can be used to test the application endpoints [Postman](https://getpostman.com).
-    - Import the postman collections
-    Local server: `./casting_agency_local.postman_collection.json`
-    Production Server: `./casting_agency_production.postman_collection.json`
-    - If the JWTs provided have expired, new JWTs can be added by right-clicking the collection folder for Casting Assistant, Casting Director and Executive Producer, navigating to the authorization tab, and pasting the JWT for each role in the token field.
-    - Run the collection.
+[Postman](https://getpostman.com) can be used to test the application endpoints.
+
+> Import the postman collections
+>
+> Local server: `./casting_agency_local.postman_collection.json`
+>
+> Production Server: `./casting_agency_production.postman_collection.json`
+> 
+> If the tokens provided have expired, new tokens can be added by right-clicking the collection folder for Casting Assistant, Casting Director and Executive Producer, navigating to the authorization tab, and pasting the token for each role in the token field.
+>
+> Run the collection.
 
 ## Error Handling
 Errors are returned as JSON objects in the following format:
@@ -544,7 +553,7 @@ General:
     - release_date: date a valid date format e.g. "mm-dd-YYYY", required.
     - genre: string, must match an option in the GenreEnum list, required.
 
-> #### GenreEnum List
+#### GenreEnum List
 > Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Musical, Romance, Scifi
 
 Sample Request:
@@ -579,7 +588,7 @@ General:
     - release_date: date a valid date format e.g. "mm-dd-YYYY", optional.
     - genre: string, must match an option in the GenreEnum list, optional.
 
-> #### GenreEnum List
+#### GenreEnum List
 > Action, Adventure, Animation, Biography, Comedy, Crime, Documentary, Drama, Family, Fantasy, History, Horror, Musical, Romance, Scifi
 
 Sample Request:
