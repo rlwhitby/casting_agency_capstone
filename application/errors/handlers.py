@@ -2,7 +2,7 @@ from flask import abort, jsonify, current_app
 from werkzeug.exceptions import HTTPException
 
 # TODO: is it needed?
-from application.extensions import db
+from application import db
 from application.errors import bp
 from application.auth.auth import AuthError
 

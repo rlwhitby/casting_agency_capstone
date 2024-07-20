@@ -1,9 +1,8 @@
 import dateparser
 from flask import abort, jsonify, request, current_app
+import os
 
-# TODO: may not be needed?
-from application.extensions import db
-
+from application import db
 from application.auth.auth import requires_auth
 from application.models.enums import GenreEnum
 
@@ -11,16 +10,24 @@ from application.errors.handlers import customExceptionHandler
 from application.main import bp
 from application.models.models import Actor, Movie
 
+# Constants for generate_auth_url helper function:
+AUTH0_DOMAIN = os.environ.get("AUTH0_DOMAIN")
+ALGORITHMS = os.environ.get("ALGORITHMS")
+API_AUDIENCE = os.environ.get("API_AUDIENCE")
+AUTH0_CLIENT_ID=os.environ.get("AUTH0_CLIENT_ID")
+AUTH0_CALLBACK_URL=os.environ.get("AUTH0_CALLBACK_URL")
 
-# TODO does this need to be repeated if there are multiple files?
+
 # @bp.after_request
 @bp.after_app_request
 def after_request(response):
     response.headers.add(
-        "Access-Control-Allow-Headers", "Content-type,Authorization,true"
+        "Access-Control-Allow-Headers",
+        "Content-type,Authorization,true"
     )
     response.headers.add(
-        "Access-Control-Allow-Methods", "GET, PATCH, POST, POST, DELETE, OPTIONS"
+        "Access-Control-Allow-Methods",
+        "GET, PATCH, POST, POST, DELETE, OPTIONS"
     )
     return response
 
@@ -28,6 +35,23 @@ def after_request(response):
 @bp.route("/")
 def index():
     return jsonify({"message": "Welcome to the Casting Agency App!"})
+
+# Ref: https://knowledge.udacity.com/questions/177446
+# Helper function to generate a new JWT token
+@bp.route("/authorization/url", methods=["GET"])
+def generate_auth_url():
+    """ The generate_auth_url is a helper function that returns
+    the authorization login url for generating new JWT tokens.
+    """
+    url = f'https://{AUTH0_DOMAIN}/authorize' \
+        f'?audience={API_AUDIENCE}' \
+        f'&response_type=token&client_id=' \
+        f'{AUTH0_CLIENT_ID}&redirect_uri=' \
+        f'{AUTH0_CALLBACK_URL}'
+        
+    return jsonify({
+        'url': url
+    })
 
 
 # ----------------------------------------------------------------------------#
@@ -84,7 +108,7 @@ def get_actors(payload):
 @bp.route("/actor/<int:actor_id>/movies")
 @requires_auth("view:actors")
 def get_actor_movies(payload, actor_id):
-    # def get_actor_movies(actor_id):
+# def get_actor_movies(actor_id):
     """Return a list of movies the actor has been cast in.
 
     The get_actor_movies function uses the GET method to
@@ -101,18 +125,21 @@ def get_actor_movies(payload, actor_id):
     "movies cast in": a list of movies the actor has been cast in.
 
     JSON: "success": True, "actor": the actor's name,
-    "movies cast in": "The actor actor.name has not been cast in any movies yet",
-    if the actor has not been cast in any movies.
+    "movies cast in": "The actor actor.name has not been cast in any
+    movies yet", if the actor has not been cast in any movies.
 
     Raises:
     HTTPException: 404, "success": False,
-    "description": "No actor with id actor_id exists", if the actor_id is not
-    in the database.
+    "description": "No actor with id actor_id exists", if the actor_id
+    is not in the database.
     """
     try:
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
         if actor is None:
-            abort(404, description="No actor with id " + str(actor_id) + " exists")
+            abort(
+                404,
+                description="No actor with id " + str(actor_id) + " exists"
+                )
 
         movies = [movie.format() for movie in actor.movies]
 
@@ -131,9 +158,12 @@ def get_actor_movies(payload, actor_id):
             )
 
         return (
-            jsonify({"success": True, "actor": actor.name, "movies cast in": movies}),
-            200,
-        )
+            jsonify(
+                {"success": True,
+                 "actor": actor.name,
+                 "movies cast in": movies}
+                ), 200,
+            )
 
     except Exception as e:
         customExceptionHandler(e)
@@ -179,7 +209,8 @@ def add_actor(payload):
                 new_age = body.get("age")
             else:
                 abort(
-                    422, description="An actor's age must be a positive integer value"
+                    422,
+                    description="An actor's age must be a positive number."
                 )
         else:
             abort(422, description="An actor's age must be provided")
@@ -218,8 +249,8 @@ def edit_actor(payload, actor_id):
     # def edit_actor(actor_id):
     """Edits an actor in the database.
 
-    The edit_actor endpoint is a private endpoint using the PATCH method to edit
-    a chosen actor from the database.
+    The edit_actor endpoint is a private endpoint using the PATCH
+    method to edit a chosen actor from the database.
 
     The endpoint takes the actor id and, if the actor exists,
     edits it with the submitted name, age and/or gender and
@@ -250,7 +281,10 @@ def edit_actor(payload, actor_id):
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
 
         if actor is None:
-            abort(404, description="No actor with id " + str(actor_id) + " exists")
+            abort(
+                404,
+                description="No actor with id " + str(actor_id) + " exists"
+                )
 
         if "name" in body:
             actor.name = body.get("name")
@@ -260,7 +294,8 @@ def edit_actor(payload, actor_id):
                 actor.age = body.get("age")
             else:
                 abort(
-                    422, description="An actor's age must be a positive integer value"
+                    422,
+                    description="An actor's age must be a positive number."
                 )
         if "gender" in body:
             actor.gender = body.get("gender")
@@ -286,8 +321,8 @@ def delete_actor(payload, actor_id):
     # def delete_actor(actor_id):
     """Deletes an actor from the database.
 
-    The delete_actor endpoint is a private endpoint using the DELETE method to delete
-    a chosen actor from the database.
+    The delete_actor endpoint is a private endpoint using the DELETE
+    method to delete a chosen actor from the database.
 
     The endpoint takes the actor id and, if the actor exists,
     deletes it from the database.
@@ -309,7 +344,10 @@ def delete_actor(payload, actor_id):
     try:
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
         if actor is None:
-            abort(404, description="No actor with id " + str(actor_id) + " exists")
+            abort(
+                404,
+                description="No actor with id " + str(actor_id) + " exists"
+                )
 
         actor.delete()
 
@@ -358,7 +396,7 @@ def get_movies(payload):
         allMovies = Movie.query.all()
 
         if len(allMovies) == 0:
-            abort(404, description="There are no movies in the database")
+            abort(404, description="There are no movies in the database.")
 
         movies = list(map(lambda movie: movie.format(), allMovies))
 
@@ -379,8 +417,8 @@ def get_movies(payload):
 @bp.route("/movie/<int:movie_id>/actors")
 @requires_auth("view:movies")
 def get_movie_actors(payload, movie_id):
-    # def get_movie_actors(movie_id):
-    """Return a list of actors cast in the actor.
+# def get_movie_actors(movie_id):
+    """Return a list of actors cast in the movie.
 
     The get_movie_actors function uses the GET method to
     list the actors in the actor.format() data representation that
@@ -407,25 +445,31 @@ def get_movie_actors(payload, movie_id):
     try:
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
         if movie is None:
-            abort(404, description="No movie with id " + str(movie_id) + " exists")
+            abort(
+                404,
+                description="No movie with id " + str(movie_id) + " exists"
+                )
 
         actors = [actor.format() for actor in movie.actors]
-
+        
         if len(actors) == 0:
             return (
                 jsonify(
-                    {
-                        "success": True,
+                    {"success": True,
                         "movie": movie.title,
                         "actors cast": "The movie "
                         + movie.title
-                        + " does not have any cast members yet",
-                    }
-                ),
-                200,
-            )
+                        + " does not have any cast members yet"}
+                    ), 200,
+                )
 
-        return jsonify({"success": True, "movie": movie.title, "actors cast": actors})
+        return (
+            jsonify(
+                {"success": True,
+                    "movie": movie.title,
+                    "actors cast": actors}
+                ), 200,
+            )
 
     except Exception as e:
         customExceptionHandler(e)
@@ -456,8 +500,9 @@ def add_movie(payload):
     title, release_date and genre, are either not provided, or not
     in the correct format.
 
-    HTTPException: 422, "message": "A genre from the following list must be entered:
-    [the GenrueEnum list]", if the submitted genre does not match an item from the list.
+    HTTPException: 422, "message": "A genre from the following list must
+    be entered: [the GenrueEnum list]", if the submitted genre does not match
+    an item from the list.
     """
     try:
         body = request.get_json()
@@ -470,19 +515,16 @@ def add_movie(payload):
 
         # Release Date is required
         # dateparser.parse is used to check if a valid date has been provided
-        # Ref: https://dateparser.readthedocs.io/en/latest/settings.html#handling-incomplete-dates
+        # Ref: https://dateparser.readthedocs.io/en/latest/settings.html#handling-incomplete-dates  # noqa
         if "release_date" in body:
-            if (
-                dateparser.parse(
+            if (dateparser.parse(
                     body.get("release_date"),
                     date_formats=["%d-%m-%Y"],
-                    settings={"REQUIRE_PARTS": ["day", "month", "year"]},
-                )
-                == None
-            ):
+                    settings={"REQUIRE_PARTS": ["day", "month", "year"]}
+                    ) is None):
                 abort(
                     422,
-                    description="The release date must be a valid format e.g. dd-mm-YYYY",
+                    description="The release date must be a valid format e.g. mm-dd-YYYY"  # noqa
                 )
             else:
                 new_release_date = body.get("release_date")
@@ -505,7 +547,11 @@ def add_movie(payload):
         else:
             abort(422, description="A genre must be provided")
 
-        movie = Movie(title=new_title, release_date=new_release_date, genre=new_genre)
+        movie = Movie(
+            title=new_title,
+            release_date=new_release_date,
+            genre=new_genre
+            )
 
         movie.insert()
 
@@ -529,8 +575,8 @@ def edit_movie(payload, movie_id):
     # def edit_movie(movie_id):
     """Edits an movie in the database.
 
-    The edit_movie endpoint is a private endpoint using the PATCH method to edit
-    a chosen movie from the database.
+    The edit_movie endpoint is a private endpoint using the PATCH method
+    to edit a chosen movie from the database.
 
     The endpoint takes the movie id and, if the movie exists,
     edits it with the submitted title, release date and/or genre and
@@ -551,8 +597,9 @@ def edit_movie(payload, movie_id):
     "description": "No movie with id {movie_id} exists", if the movie_id is not
     in the database.
 
-    HTTPException: 422, "message": "A genre from the following list must be entered:
-    [the GenrueEnum list]", if the submitted genre does not match an item from the list.
+    HTTPException: 422, "message": "A genre from the following list must be
+    entered: [the GenrueEnum list]", if the submitted genre does not match an
+    item from the list.
     """
 
     try:
@@ -560,7 +607,10 @@ def edit_movie(payload, movie_id):
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
 
         if movie is None:
-            abort(404, description="No movie with id " + str(movie_id) + " exists")
+            abort(
+                404,
+                description="No movie with id " + str(movie_id) + " exists"
+                )
 
         if "title" in body:
             movie.title = body.get("title")
@@ -572,11 +622,11 @@ def edit_movie(payload, movie_id):
                     date_formats=["%d-%m-%Y"],
                     settings={"REQUIRE_PARTS": ["day", "month", "year"]},
                 )
-                == None
+                is None
             ):
                 abort(
                     422,
-                    description="The release date must be a valid format e.g. dd-mm-YYYY",
+                    description="The release date must be a valid format e.g. mm-dd-YYYY",  # noqa
                 )
             else:
                 movie.release_date = body.get("release_date")
@@ -614,8 +664,8 @@ def delete_movie(payload, movie_id):
     # def delete_movie(movie_id):
     """Deletes an movie from the database.
 
-    The delete_movie endpoint is a private endpoint using the DELETE method to delete
-    a chosen movie from the database.
+    The delete_movie endpoint is a private endpoint using the DELETE method
+    to delete a chosen movie from the database.
 
     The endpoint takes the movie id and, if the movie exists,
     deletes it from the database.
@@ -637,7 +687,10 @@ def delete_movie(payload, movie_id):
     try:
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
         if movie is None:
-            abort(404, description="No movie with id " + str(movie_id) + " exists")
+            abort(
+                404,
+                description="No movie with id " + str(movie_id) + " exists"
+                )
 
         movie.delete()
 
@@ -666,11 +719,11 @@ def cast_actor_in_movie(payload, movie_id, actor_id):
     # def cast_actor_in_movie(movie_id, actor_id):
     """Casts an actor in a movie.
 
-    The cast_actor_in_movie endpoint is a private endpoint using the POST method
-    cast an actor in a movie using the actor_id and movie_id.
+    The cast_actor_in_movie endpoint is a private endpoint using the POST
+    method to cast an actor in a movie using the actor_id and movie_id.
 
-    The endpoint takes the actor_id and movie id and, if the actor and movie both
-    exist, links them together.
+    The endpoint takes the actor_id and movie id and, if the actor and movie
+    both exist, links them together.
 
     The endpoint requires the user to have the "post:cast_actors" permission.
 
@@ -679,7 +732,9 @@ def cast_actor_in_movie(payload, movie_id, actor_id):
     wrapper, the actor_id and the movie id.
 
     Returns:
-    JSON: "success": True, "movie": the movie title, "actor cast": the actor name.
+    JSON: "success": True,
+    "movie": the movie title,
+    "actor cast": the actor name.
 
     Raises:
     HTTPException: 404, "success": False,
@@ -695,18 +750,30 @@ def cast_actor_in_movie(payload, movie_id, actor_id):
         movie = Movie.query.filter(Movie.id == movie_id).one_or_none()
 
         if movie is None:
-            abort(404, description="No movie with id " + str(movie_id) + " exists")
+            abort(
+                404,
+                description="No movie with id " + str(movie_id) + " exists"
+                )
 
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
 
         if actor is None:
-            abort(404, description="No actor with id " + str(actor_id) + " exists")
+            abort(
+                404,
+                description="No actor with id " + str(actor_id) + " exists"
+                )
 
         movie.actors.append(actor)
         movie.insert()
 
         return (
-            jsonify({"success": True, "movie": movie.title, "actor cast": actor.name}),
+            jsonify(
+                {
+                    "success": True,
+                    "movie": movie.title,
+                    "actor cast": actor.name
+                    }
+                ),
             200,
         )
 
